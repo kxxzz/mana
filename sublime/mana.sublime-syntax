@@ -1,0 +1,120 @@
+%YAML 1.2
+---
+
+# https://www.sublimetext.com/docs/3/syntax.html
+
+name: MANA
+file_extensions: [mana]
+scope: source.mana
+
+
+contexts:
+  main:
+    - include: comments
+    - include: numbers
+    - include: symbols
+    - include: strings
+    - include: rounds
+    - include: squares
+    - include: curlies
+
+  rounds:
+    - match: '\('
+      scope: punctuation.definition.group.begin.mana
+      push:
+        - meta_scope: meta.group.mana
+        - match: '\)'
+          scope: punctuation.definition.group.end.mana
+          pop: true
+        - include: main
+    - match: '\)'
+      scope: invalid.illegal.stray-bracket-end.mana
+
+  squares:
+    - match: '\['
+      scope: punctuation.definition.group.begin.mana
+      push:
+        - meta_scope: meta.group.mana
+        - match: '\]'
+          scope: punctuation.definition.group.end.mana
+          pop: true
+        - include: main
+    - match: '\]'
+      scope: invalid.illegal.stray-bracket-end.mana
+
+  curlies:
+    - match: '\{'
+      scope: punctuation.definition.group.begin.mana
+      push:
+        - meta_scope: meta.group.mana
+        - match: '\}'
+          scope: punctuation.definition.group.end.mana
+          pop: true
+        - include: main
+    - match: '\}'
+      scope: invalid.illegal.stray-bracket-end.mana
+
+  numbers:
+    - match: '\b((0(x|X)\h*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))((e|E)(\+|-)?[0-9]+)?)(?i:l|ul|u|f|ll|ull)?\b'
+      scope: constant.numeric.mana
+
+  symbols:
+    - match: (?<=[\s\(\)\[\]\{\}\"\']|)([^\s\(\)\[\]\{\}\"\']+)(?=[\s\(\)\[\]\{\}\"\'])
+      scope: symbol.other.global.mana
+      captures:
+        1: punctuation.definition.symbol.begin.mana
+        3: punctuation.definition.symbol.end.mana
+
+  strings:
+    - match: '"'
+      scope: punctuation.definition.string.begin.mana
+      push:
+        - meta_scope: string.quoted.double.mana
+        - match: '"'
+          scope: punctuation.definition.string.end.mana
+          pop: true
+        - match: \\.
+          scope: constant.character.escape.mana
+
+  block-comment:
+    - match: '\/\*'
+      scope: punctuation.definition.comment.mana
+      push:
+        - meta_scope: comment.block.mana
+        - match: '\*\/'
+          pop: true
+
+  comments:
+    - include: block-comment
+    - match: '\*\/'
+      scope: invalid.illegal.stray-comment-end.mana
+    - match: '//'
+      scope: punctuation.definition.comment.mana
+      push:
+        - meta_scope: comment.line.double-slash.mana
+        - match: $\n?
+          pop: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
