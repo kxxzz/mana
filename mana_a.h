@@ -81,31 +81,35 @@ static u32 align(u32 x, u32 a)
 
 
 
-typedef vec_t(MANA_TokSrcInfo) MANA_TokSrcInfoVec;
 
 
-typedef struct MANA_SpaceSrcInfo
+
+
+
+typedef struct MANA_TokInfo
 {
-    vec_u32 fileBases[1];
-    MANA_TokSrcInfoVec toks[1];
-} MANA_SpaceSrcInfo;
+    u32 offset;
+    u32 length;
+    u32 flags;
+} MANA_TokInfo;
 
-MANA_SpaceSrcInfo* MANA_spaceSrcInfoNew(void)
-{
-    MANA_SpaceSrcInfo* srcInfo = (MANA_SpaceSrcInfo*)zalloc(sizeof(*srcInfo));
-    return srcInfo;
-}
+typedef vec_t(MANA_TokInfo) MANA_TokInfoVec;
 
-static void MANA_spaceSrcInfoFree(MANA_SpaceSrcInfo* srcInfo)
-{
-    vec_free(srcInfo->toks);
-    vec_free(srcInfo->fileBases);
-}
 
-static const MANA_TokSrcInfo* MANA_tokSrcInfo(MANA_SpaceSrcInfo* srcInfo, u32 tokIdx)
+typedef struct MANA_Space
 {
-    return srcInfo->toks->data + tokIdx;
-}
+    MANA_TokInfoVec toks[1];
+    upool_t dataPool;
+    vec_char tmpBuf[1];
+} MANA_Space;
+
+
+
+
+
+
+
+
 
 
 
