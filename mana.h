@@ -57,7 +57,7 @@ typedef struct MANA_LexingOpt
     const char* spaceChars;
     const char* aloneChars;
     const char* separateChars;
-    const char* quoteChars;
+    const char* quoteChars[2];
     const char* escapeChars;
 } MANA_LexingOpt;
 
