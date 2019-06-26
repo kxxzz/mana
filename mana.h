@@ -52,8 +52,16 @@ void MANA_spaceSrcInfoFree(MANA_SpaceSrcInfo* srcInfo);
 const MANA_TokSrcInfo* MANA_tokSrcInfo(MANA_SpaceSrcInfo* srcInfo, u32 tokIdx);
 
 
+typedef struct MANA_LexingOpt
+{
+    const char* spaceChars;
+    const char* aloneChars;
+    const char* separateChars;
+    const char* quoteChars;
+    const char* escapeChars;
+} MANA_LexingOpt;
 
-void MANA_lexing(const MANA_Space* space, const char* src, MANA_SpaceSrcInfo* srcInfo);
+void MANA_lexing(const MANA_Space* space, const char* src, const MANA_LexingOpt* opt, MANA_SpaceSrcInfo* srcInfo);
 
 
 
