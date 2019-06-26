@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <ctype.h>
 
+#include <vec.h>
 #include <fileu.h>
 #include <upool.h>
 
