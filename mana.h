@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <assert.h>
 
+#include <vec.h>
 
 
 typedef unsigned char u8;
@@ -35,6 +36,7 @@ u32 MANA_tokDataSize(const MANA_Space* space, u32 tokIdx);
 u32 MANA_tokFlags(const MANA_Space* space, u32 tokIdx);
 
 
+
 typedef struct MANA_TokSrcInfo
 {
     u32 file;
@@ -43,12 +45,15 @@ typedef struct MANA_TokSrcInfo
     u32 column;
 } MANA_TokSrcInfo;
 
-const MANA_TokSrcInfo* MANA_tokSrcInfo(const MANA_Space* space, u32 tokIdx);
+typedef struct MANA_SpaceSrcInfo MANA_SpaceSrcInfo;
+
+MANA_SpaceSrcInfo* MANA_spaceSrcInfoNew(void);
+void MANA_spaceSrcInfoFree(MANA_SpaceSrcInfo* srcInfo);
+const MANA_TokSrcInfo* MANA_tokSrcInfo(MANA_SpaceSrcInfo* srcInfo, u32 tokIdx);
 
 
 
-
-
+void MANA_lexing(const MANA_Space* space, const char* src, MANA_SpaceSrcInfo* srcInfo);
 
 
 
