@@ -29,7 +29,7 @@ static void MANA_spaceSrcInfoFree(MANA_SpaceSrcInfo* srcInfo)
 
 
 
-const MANA_TokSrcInfo* MANA_tokSrcInfo(const MANA_Space* space, MANA_Tok tok)
+const MANA_TokSrcInfo* MANA_tokSrcInfo(const MANA_Space* space, u32 tokId)
 {
     return NULL;
 }
