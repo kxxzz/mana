@@ -37,6 +37,15 @@ u32 MANA_tokFlags(const MANA_Space* space, u32 tokIdx);
 
 
 
+
+
+enum
+{
+    MANA_TokFlag_Quoted = 1U << 0,
+};
+
+
+
 typedef struct MANA_TokSrcInfo
 {
     u32 file;
@@ -54,14 +63,10 @@ const MANA_TokSrcInfo* MANA_tokSrcInfo(MANA_SpaceSrcInfo* srcInfo, u32 tokIdx);
 
 typedef struct MANA_LexingOpt
 {
-    const char* spaceChars;
     const char* aloneChars;
-    const char* separateChars;
-    const char* quoteChars[2];
-    const char* escapeChars;
 } MANA_LexingOpt;
 
-void MANA_lexing(const MANA_Space* space, const char* src, const MANA_LexingOpt* opt, MANA_SpaceSrcInfo* srcInfo);
+void MANA_lexing(MANA_Space* space, const char* src, const MANA_LexingOpt* opt, MANA_SpaceSrcInfo* srcInfo);
 
 
 
