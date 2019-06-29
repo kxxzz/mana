@@ -58,6 +58,10 @@ static MANA_Lexing MANA_lexingNew
     MANA_Space* space, u32 srcLen, const char* src, const MANA_LexingOpt* opt, MANA_SpaceSrcInfo* srcInfo
 )
 {
+    if (srcInfo)
+    {
+        vec_push(srcInfo->fileBases, MANA_spaceToksTotal(space));
+    }
     MANA_Lexing ctx[1] =
     {
         { space, srcLen, src, 0, 1, opt, srcInfo }
@@ -167,6 +171,33 @@ static bool MANA_skipSapce(MANA_Lexing* ctx)
 
 
 
+static MANA_TokSrcInfo MANA_lexingTokSrcInfo(MANA_Lexing* ctx, u32 begin)
+{
+    assert(ctx->srcInfo);
+    assert(ctx->srcInfo->fileBases->length > 0);
+    MANA_TokSrcInfo tokInfo[1] = { 0 };
+    tokInfo->file = ctx->srcInfo->fileBases->length - 1;
+    tokInfo->offset = begin;
+    tokInfo->line = ctx->curLine;
+    tokInfo->column = 1;
+    for (u32 i = 0; i < tokInfo->offset; ++i)
+    {
+        char c = ctx->src[tokInfo->offset - i];
+        if (strchr("\n\r", c))
+        {
+            tokInfo->column = i;
+            break;
+        }
+    }
+    return *tokInfo;
+}
+
+
+
+
+
+
+
 
 
 
@@ -231,6 +262,11 @@ static u32 MANA_lexingNextToken(MANA_Lexing* ctx)
                 vec_push(tmpStrBuf, src[i]);
             }
         }
+        if (srcInfo)
+        {
+            MANA_TokSrcInfo tokSrcInfo = MANA_lexingTokSrcInfo(ctx, begin);
+            vec_push(srcInfo->toks, tokSrcInfo);
+        }
         return MANA_tokNewByCstr(space, tmpStrBuf->data, MANA_TokFlag_Quoted);
     }
     else
@@ -261,6 +297,11 @@ static u32 MANA_lexingNextToken(MANA_Lexing* ctx)
             {
                 ++ctx->cur;
             }
+        }
+        if (srcInfo)
+        {
+            MANA_TokSrcInfo tokSrcInfo = MANA_lexingTokSrcInfo(ctx, begin);
+            vec_push(srcInfo->toks, tokSrcInfo);
         }
         return MANA_tokNewByBuf(space, src + begin, ctx->cur - begin, 0);
     }
