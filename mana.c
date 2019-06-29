@@ -27,6 +27,12 @@ u32 MANA_spaceToksTotal(const MANA_Space* space)
 }
 
 
+void MANA_spaceToksReset(MANA_Space* space)
+{
+    vec_resize(space->toks, 0);
+}
+
+
 
 u32 MANA_tokNewByCstr(MANA_Space* space, const char* str, u32 flags)
 {
