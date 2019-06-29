@@ -33,7 +33,26 @@ static int mainReturn(int r)
 
 static void tests(void)
 {
+    char* text;
 
+    u32 textSize = FILEU_readFile("../1.mana", &text);
+    assert(textSize != -1);
+
+    MANA_Space* space = MANA_spaceNew();
+    MANA_SpaceSrcInfo* srcInfo = MANA_spaceSrcInfoNew();
+
+    MANA_LexingOpt opt[1] = { { "()[]{};," } };
+    MANA_lexing(space, text, opt, srcInfo);
+
+    for (u32 i = 0; i < MANA_spaceToksTotal(space); ++i)
+    {
+        const char* str = MANA_tokData(space, i);
+        printf("%s\n", str);
+    }
+
+    free(text);
+    MANA_spaceSrcInfoFree(srcInfo);
+    MANA_spaceFree(space);
 }
 
 

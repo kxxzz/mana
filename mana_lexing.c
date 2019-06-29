@@ -15,19 +15,20 @@ typedef struct MANA_SpaceSrcInfo
     MANA_TokSrcInfoVec toks[1];
 } MANA_SpaceSrcInfo;
 
-static MANA_SpaceSrcInfo* MANA_spaceSrcInfoNew(void)
+MANA_SpaceSrcInfo* MANA_spaceSrcInfoNew(void)
 {
     MANA_SpaceSrcInfo* srcInfo = (MANA_SpaceSrcInfo*)zalloc(sizeof(*srcInfo));
     return srcInfo;
 }
 
-static void MANA_spaceSrcInfoFree(MANA_SpaceSrcInfo* srcInfo)
+void MANA_spaceSrcInfoFree(MANA_SpaceSrcInfo* srcInfo)
 {
     vec_free(srcInfo->toks);
     vec_free(srcInfo->fileBases);
+    free(srcInfo);
 }
 
-static const MANA_TokSrcInfo* MANA_tokSrcInfo(MANA_SpaceSrcInfo* srcInfo, u32 tokIdx)
+const MANA_TokSrcInfo* MANA_tokSrcInfo(MANA_SpaceSrcInfo* srcInfo, u32 tokIdx)
 {
     return srcInfo->toks->data + tokIdx;
 }
