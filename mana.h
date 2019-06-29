@@ -28,6 +28,12 @@ void MANA_spaceFree(MANA_Space* space);
 u32 MANA_spaceToksTotal(const MANA_Space* space);
 void MANA_spaceToksReset(MANA_Space* space);
 
+u32 MANA_spaceDataIdByCstr(MANA_Space* space, const char* str);
+u32 MANA_spaceDataIdByBuf(MANA_Space* space, const char* ptr, u32 len);
+
+const char* MANA_spaceDataByCstr(MANA_Space* space, const char* str);
+const char* MANA_spaceDataByBuf(MANA_Space* space, const char* ptr, u32 len);
+
 u32 MANA_tokNewByCstr(MANA_Space* space, const char* str, u32 flags);
 u32 MANA_tokNewByBuf(MANA_Space* space, const char* ptr, u32 len, u32 flags);
 
