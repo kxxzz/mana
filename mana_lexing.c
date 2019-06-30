@@ -60,7 +60,8 @@ static MANA_Lexing MANA_lexingNew
 {
     if (srcInfo)
     {
-        vec_push(srcInfo->fileBases, MANA_spaceToksTotal(space));
+        u32 n = MANA_spaceToksTotal(space);
+        vec_push(srcInfo->fileBases, n);
     }
     MANA_Lexing ctx[1] =
     {
