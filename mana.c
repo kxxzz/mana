@@ -38,14 +38,14 @@ void MANA_spaceToksReset(MANA_Space* space)
 
 
 
-const char* MANA_spaceDataByCstr(MANA_Space* space, const char* str)
+const char* MANA_spaceDataPtrByCstr(MANA_Space* space, const char* str)
 {
     u32 len = (u32)strlen(str);
     u32 off = upool_elm(space->dataPool, str, len + 1, NULL);
     return upool_elmData(space->dataPool, off);
 }
 
-const char* MANA_spaceDataByBuf(MANA_Space* space, const char* ptr, u32 len)
+const char* MANA_spaceDataPtrByBuf(MANA_Space* space, const char* ptr, u32 len)
 {
     vec_resize(space->tmpBuf, len + 1);
     memcpy(space->tmpBuf->data, ptr, len);
@@ -78,7 +78,7 @@ u32 MANA_tokNewByBuf(MANA_Space* space, const char* ptr, u32 len, u32 flags)
     return tokId;
 }
 
-const char* MANA_tokData(const MANA_Space* space, u32 tokIdx)
+const char* MANA_tokDataPtr(const MANA_Space* space, u32 tokIdx)
 {
     assert(tokIdx < space->toks->length);
     MANA_TokInfo* info = space->toks->data + tokIdx;

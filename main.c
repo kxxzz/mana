@@ -46,7 +46,7 @@ static void tests(void)
 
     for (u32 i = 0; i < MANA_spaceToksTotal(space); ++i)
     {
-        const char* str = MANA_tokData(space, i);
+        const char* str = MANA_tokDataPtr(space, i);
         printf("%s\n", str);
     }
 
