@@ -31,6 +31,7 @@ void MANA_spaceToksReset(MANA_Space* space);
 u32 MANA_spaceDataIdByCstr(MANA_Space* space, const char* str);
 u32 MANA_spaceDataIdByBuf(MANA_Space* space, const char* ptr, u32 len);
 
+const char* MANA_spaceDataById(MANA_Space* space, u32 dataId);
 const char* MANA_spaceDataByCstr(MANA_Space* space, const char* str);
 const char* MANA_spaceDataByBuf(MANA_Space* space, const char* ptr, u32 len);
 
