@@ -66,7 +66,7 @@ typedef struct MANA_SpaceSrcInfo MANA_SpaceSrcInfo;
 
 MANA_SpaceSrcInfo* MANA_spaceSrcInfoNew(void);
 void MANA_spaceSrcInfoFree(MANA_SpaceSrcInfo* srcInfo);
-const MANA_TokSrcInfo* MANA_tokSrcInfo(MANA_SpaceSrcInfo* srcInfo, u32 tokIdx);
+const MANA_TokSrcInfo* MANA_tokSrcInfo(const MANA_SpaceSrcInfo* srcInfo, u32 tokIdx);
 
 
 typedef struct MANA_LexingOpt

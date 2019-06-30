@@ -28,7 +28,7 @@ void MANA_spaceSrcInfoFree(MANA_SpaceSrcInfo* srcInfo)
     free(srcInfo);
 }
 
-const MANA_TokSrcInfo* MANA_tokSrcInfo(MANA_SpaceSrcInfo* srcInfo, u32 tokIdx)
+const MANA_TokSrcInfo* MANA_tokSrcInfo(const MANA_SpaceSrcInfo* srcInfo, u32 tokIdx)
 {
     return srcInfo->toks->data + tokIdx;
 }
