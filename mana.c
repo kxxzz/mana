@@ -55,6 +55,23 @@ const char* MANA_spaceDataPtrByBuf(MANA_Space* space, const char* ptr, u32 len)
 }
 
 
+u32 MANA_spaceDataIdByCstr(MANA_Space* space, const char* str)
+{
+    u32 len = (u32)strlen(str);
+    u32 off = upool_elm(space->dataPool, str, len + 1, NULL);
+    return off;
+}
+
+u32 MANA_spaceDataIdByBuf(MANA_Space* space, const char* ptr, u32 len)
+{
+    vec_resize(space->tmpBuf, len + 1);
+    memcpy(space->tmpBuf->data, ptr, len);
+    space->tmpBuf->data[len] = 0;
+    u32 off = upool_elm(space->dataPool, space->tmpBuf->data, len + 1, NULL);
+    return off;
+}
+
+
 
 u32 MANA_tokNewByCstr(MANA_Space* space, const char* str, u32 flags)
 {
@@ -83,6 +100,13 @@ const char* MANA_tokDataPtr(const MANA_Space* space, u32 tokIdx)
     assert(tokIdx < space->toks->length);
     MANA_TokInfo* info = space->toks->data + tokIdx;
     return upool_elmData(space->dataPool, info->offset);
+}
+
+u32 MANA_tokDataId(const MANA_Space* space, u32 tokIdx)
+{
+    assert(tokIdx < space->toks->length);
+    MANA_TokInfo* info = space->toks->data + tokIdx;
+    return info->offset;
 }
 
 u32 MANA_tokDataSize(const MANA_Space* space, u32 tokIdx)
